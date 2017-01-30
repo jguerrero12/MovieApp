@@ -42,7 +42,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
-Acknowlegement of assignement was the day it was due.
+- Acknowlegement of assignment was the day it was due.
+- My main personal computer was in repair so development had to be done on an alternate mac computer (setup of dev environment had to be done again for the alternate mac).
 
 ## License
 

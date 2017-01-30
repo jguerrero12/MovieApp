@@ -62,7 +62,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             
             if let data = data {
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    print(dataDictionary)
                     self.movies = dataDictionary["results"] as? [NSDictionary]
                     self.tableView.reloadData()
                 }
@@ -100,8 +99,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.titleLabel.text = title
         cell.overviewLabel.text = overView
         
-        
-        print("row \(indexPath.row)")
         
         return cell
     }
