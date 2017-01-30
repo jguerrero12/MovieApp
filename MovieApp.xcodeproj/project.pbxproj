@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E67944A1E3EFFB100739480 /* 1485773416_kamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6794491E3EFFB100739480 /* 1485773416_kamera.png */; };
 		4E8ABAAB1E3EC6C10041D36C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8ABAAA1E3EC6C10041D36C /* AppDelegate.swift */; };
 		4E8ABAB01E3EC6C10041D36C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E8ABAAE1E3EC6C10041D36C /* Main.storyboard */; };
 		4E8ABAB21E3EC6C10041D36C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8ABAB11E3EC6C10041D36C /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E6794491E3EFFB100739480 /* 1485773416_kamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1485773416_kamera.png; sourceTree = "<group>"; };
 		4E8ABAA71E3EC6C10041D36C /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E8ABAAA1E3EC6C10041D36C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E8ABAAF1E3EC6C10041D36C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -42,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E67944B1E3EFFC100739480 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				4E6794491E3EFFB100739480 /* 1485773416_kamera.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		4E8ABA9E1E3EC6C10041D36C = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +78,7 @@
 				4E8ABAAA1E3EC6C10041D36C /* AppDelegate.swift */,
 				4E8ABAAE1E3EC6C10041D36C /* Main.storyboard */,
 				4E8ABAB11E3EC6C10041D36C /* Assets.xcassets */,
+				4E67944B1E3EFFC100739480 /* images */,
 				4E8ABAB31E3EC6C10041D36C /* LaunchScreen.storyboard */,
 				4E8ABAB61E3EC6C10041D36C /* Info.plist */,
 			);
@@ -171,6 +182,7 @@
 			files = (
 				4E8ABAB51E3EC6C10041D36C /* LaunchScreen.storyboard in Resources */,
 				4E8ABAB21E3EC6C10041D36C /* Assets.xcassets in Resources */,
+				4E67944A1E3EFFB100739480 /* 1485773416_kamera.png in Resources */,
 				4E8ABAB01E3EC6C10041D36C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +374,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jg.MovieApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -376,6 +389,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jg.MovieApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
