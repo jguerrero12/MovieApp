@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MovieApp.xcodeproj">
+      location = "group:/Users/Alienware/Documents/Xcode Documents/MovieApp/Movies.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
