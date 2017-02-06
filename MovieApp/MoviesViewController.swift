@@ -17,6 +17,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var NetworkEffectView: networkErrorView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var endPoint: String = ""
     var movies: [NSDictionary]?
     var filteredData: [NSDictionary]?
     
@@ -36,14 +37,17 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         // add refresh control to collection View
         collectionView.insertSubview(refreshControl, at: 0)
         
-        // Do any additional setup after loading the view.
+        
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)&language=en-US&page=1")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endPoint)?api_key=\(apiKey)&language=en-US&page=1")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         MBProgressHUD.showAdded(to: self.view, animated: true) // Begin load animation
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            MBProgressHUD.hide(for: self.view, animated: true) // End load animation
+        
+        let task: URLSessionDataTask = session.dataTask(with: request) {
+            (data: Data?, response: URLResponse?, error: Error?) in
+            
+            
             if let data = data {
                 self.NetworkEffectView.isHidden = true
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
@@ -57,6 +61,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
             }
         }
+        MBProgressHUD.hide(for: self.view, animated: true) // End load animation
+        
         task.resume()
     }
     
@@ -65,13 +71,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     // Hides the RefreshControl
     func refreshControlAction(refreshControl: UIRefreshControl) {
         
-        // ... Create the URLRequest `myRequest` ...
-        
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)&language=en-US&page=1")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endPoint)?api_key=\(apiKey)&language=en-US&page=1")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true) // Begin load animation
+        let task: URLSessionDataTask = session.dataTask(with: request) {
+            (data: Data?, response: URLResponse?, error: Error?) in
             
             if let data = data {
                 self.NetworkEffectView.isHidden = true
@@ -90,6 +97,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             // Tell the refreshControl to stop spinning
             refreshControl.endRefreshing()
         }
+        MBProgressHUD.hide(for: self.view, animated: true) // End load animation
         task.resume()
     }
 
@@ -107,12 +115,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posterCell", for: indexPath) as! PosterCollectionViewCell
         let movie = filteredData![indexPath.row]
         let baseUrl = "https://image.tmdb.org/t/p/w500"
-        let posterPath = movie["poster_path"] as! String
-        let imageUrl = NSURL(string: baseUrl + posterPath)
-        let imageRequest = NSURLRequest(url: imageUrl! as URL)
         
-        cell.posterImageView.setImageWith( imageRequest as URLRequest, placeholderImage: nil, success: {
-            (imageRequest, imageResponse, image) -> Void in
+        if let posterPath = movie["poster_path"] as? String{
+            let imageUrl = NSURL(string: baseUrl + posterPath)
+            let imageRequest = NSURLRequest(url: imageUrl! as URL)
+            
+            cell.posterImageView.setImageWith( imageRequest as URLRequest, placeholderImage: nil, success: {
+                (imageRequest, imageResponse, image) -> Void in
                 
                 // imageResponse will be nil if the image is cached
                 if imageResponse != nil {
@@ -126,10 +135,12 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                     // image was cached so just update image
                     cell.posterImageView.image = image
                 }
-        },
-            failure: { (imageRequest, imageResponse, error) -> Void in
-                // do something for the failure condition
-        })
+            },
+                                               failure: { (imageRequest, imageResponse, error) -> Void in
+                                                // do something for the failure condition
+            })
+            
+        }
         
         
         return cell
@@ -169,14 +180,16 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let cell = sender as! UICollectionViewCell
+        let indexPath = collectionView.indexPath(for: cell)
+        let movie = filteredData?[(indexPath?.row)!]
+        let detailedViewController = segue.destination as! detailedView
+        detailedViewController.movie = movie
     }
-    */
 
 }

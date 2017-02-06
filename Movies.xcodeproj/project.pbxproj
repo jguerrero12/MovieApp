@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F49CDB71E4009F800E1DE34 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F49CDB61E4009F800E1DE34 /* PosterCollectionViewCell.swift */; };
+		3337BCD91E4814CA000D8A42 /* detailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337BCD81E4814CA000D8A42 /* detailedView.swift */; };
 		334A4E591E47F99700F5FEF5 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334A4E581E47F99700F5FEF5 /* MoviesViewController.swift */; };
 		33ED585C1E47D633001482F4 /* networkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33ED585B1E47D633001482F4 /* networkErrorView.swift */; };
 		4E8ABAAB1E3EC6C10041D36C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8ABAAA1E3EC6C10041D36C /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2F49CDB61E4009F800E1DE34 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
+		3337BCD81E4814CA000D8A42 /* detailedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailedView.swift; sourceTree = "<group>"; };
 		334A4E581E47F99700F5FEF5 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		33ED585B1E47D633001482F4 /* networkErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = networkErrorView.swift; sourceTree = "<group>"; };
 		4E8ABAA71E3EC6C10041D36C /* Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movies.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				334A4E581E47F99700F5FEF5 /* MoviesViewController.swift */,
+				3337BCD81E4814CA000D8A42 /* detailedView.swift */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			files = (
 				33ED585C1E47D633001482F4 /* networkErrorView.swift in Sources */,
 				4E8ABAAB1E3EC6C10041D36C /* AppDelegate.swift in Sources */,
+				3337BCD91E4814CA000D8A42 /* detailedView.swift in Sources */,
 				2F49CDB71E4009F800E1DE34 /* PosterCollectionViewCell.swift in Sources */,
 				334A4E591E47F99700F5FEF5 /* MoviesViewController.swift in Sources */,
 			);
