@@ -88,7 +88,7 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. animate the poster image in detailed view when scrolling 
-2. how to load a videos, and carousel photo gallery
+2. how to load a video, and carousel photo gallery
 
 ## Video Walkthrough 
 
