@@ -15,12 +15,16 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var NetworkEffectView: networkErrorView!
-    @IBOutlet weak var searchBar: UISearchBar!
     
+    var searchBar = UISearchBar()
     var endPoint: String = ""
     var movies: [NSDictionary]?
     var filteredData: [NSDictionary]?
     
+    @IBAction func tappedNewtorkError(_ sender: Any) {
+        refreshControlAction(refreshControl: UIRefreshControl())
+
+    }
     
     override func viewDidLoad() {
         
@@ -29,6 +33,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.dataSource = self
         collectionView.delegate = self
         searchBar.delegate = self
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search"
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -37,6 +43,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         // add refresh control to collection View
         collectionView.insertSubview(refreshControl, at: 0)
         
+        self.navigationItem.titleView = searchBar
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(endPoint)?api_key=\(apiKey)&language=en-US&page=1")!
@@ -75,7 +82,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(endPoint)?api_key=\(apiKey)&language=en-US&page=1")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        
+    
         MBProgressHUD.showAdded(to: self.view, animated: true) // Begin load animation
         let task: URLSessionDataTask = session.dataTask(with: request) {
             (data: Data?, response: URLResponse?, error: Error?) in
@@ -84,7 +91,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.NetworkEffectView.isHidden = true
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     self.movies = dataDictionary["results"] as? [NSDictionary]
+                    self.filteredData = self.movies
                     self.collectionView.reloadData()
+                    
                 }
             }
             else {
@@ -114,12 +123,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posterCell", for: indexPath) as! PosterCollectionViewCell
         let movie = filteredData![indexPath.row]
+        let movieTitle = movie["title"] as! String
         let baseUrl = "https://image.tmdb.org/t/p/w500"
         
         if let posterPath = movie["poster_path"] as? String{
             let imageUrl = NSURL(string: baseUrl + posterPath)
             let imageRequest = NSURLRequest(url: imageUrl! as URL)
-            
+            cell.movieTitleLabel.text = movieTitle
             cell.posterImageView.setImageWith( imageRequest as URLRequest, placeholderImage: nil, success: {
                 (imageRequest, imageResponse, image) -> Void in
                 
@@ -136,8 +146,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                     cell.posterImageView.image = image
                 }
             },
-                                               failure: { (imageRequest, imageResponse, error) -> Void in
-                                                // do something for the failure condition
+            failure: { (imageRequest, imageResponse, error) -> Void in
+                    
             })
             
         }
@@ -174,6 +184,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         collectionView.reloadData()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        collectionView.deselectItem(at: indexPath, animated: true)
+        collectionView.reloadItems(at: [indexPath])
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -187,7 +202,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UICollectionViewCell
         let indexPath = collectionView.indexPath(for: cell)
-        let movie = filteredData?[(indexPath?.row)!]
+        let movie = filteredData![indexPath!.row]
         let detailedViewController = segue.destination as! detailedView
         detailedViewController.movie = movie
     }

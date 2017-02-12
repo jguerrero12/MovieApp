@@ -12,5 +12,7 @@ class PosterCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var posterImageView: UIImageView!
     
+    @IBOutlet weak var movieTitleLabel: UILabel!
    // override set
+    
 }
